@@ -12,11 +12,13 @@
         android:theme="@style/Theme.CountryQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".QuizQuestionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.CountryQuiz.NoActionBar"
             android:screenOrientation="portrait"
-            >
+            android:theme="@style/Theme.CountryQuiz.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
