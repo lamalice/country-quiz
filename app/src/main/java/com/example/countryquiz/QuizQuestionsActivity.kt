@@ -1,13 +1,16 @@
 package com.example.countryquiz
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.TextView
-import android.widget.Toast
+
 import androidx.core.content.ContextCompat
 import com.example.countryquiz.databinding.ActivityQuizQuestionsBinding
 
@@ -16,6 +19,8 @@ class QuizQuestionsActivity : AppCompatActivity(), OnClickListener {
     private var mcurrentPosition = 1
     private var mquestionsList : ArrayList<Question>? = null
     private var mselectedOption = 0
+    private var muserName : String? = null
+    private var mcorrectAnswer: Int = 0
 
     private lateinit var binding: ActivityQuizQuestionsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +28,8 @@ class QuizQuestionsActivity : AppCompatActivity(), OnClickListener {
         binding = ActivityQuizQuestionsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        muserName = intent.getStringExtra(Constants.USER_NAME)
 
         mquestionsList = Constants.getQuestions()
 
@@ -108,7 +115,12 @@ class QuizQuestionsActivity : AppCompatActivity(), OnClickListener {
                         mcurrentPosition <= mquestionsList!!.size -> {
                             setQuestion()
                         }else ->{
-                            Toast.makeText(this, "Congrats. You have finished the test!", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this, ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME, muserName)
+                            intent.putExtra(Constants.CORRECT_ANSWERS, mcorrectAnswer)
+                            intent.putExtra(Constants.TOTAL_QUESTIONS, mquestionsList?.size)
+                            startActivity(intent)
+                            finish()
                         }
                     }
                 }
@@ -116,6 +128,9 @@ class QuizQuestionsActivity : AppCompatActivity(), OnClickListener {
                     val question = mquestionsList?.get(mcurrentPosition-1)
                     if (question!!.correctAnswer!= mselectedOption) {
                         answerView(mselectedOption, R.drawable.wrong_option_border_bg)
+                    }
+                    else {
+                        mcorrectAnswer++
                     }
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
                 }

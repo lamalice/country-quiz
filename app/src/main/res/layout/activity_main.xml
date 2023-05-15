@@ -70,7 +70,7 @@
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="e.g. Alice Lam"
+                    tools:text="e.g. Alice Lam"
                     android:inputType="textCapWords"
                     android:textColor="#363A43"
                     android:textColorHint="#7A8089"

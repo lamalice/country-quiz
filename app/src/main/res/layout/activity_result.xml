@@ -51,6 +51,7 @@
             />
 
         <TextView
+            android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text = "Your score is 10/10"
@@ -60,6 +61,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/finish_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"

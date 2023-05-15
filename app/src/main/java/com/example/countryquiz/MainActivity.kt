@@ -8,27 +8,26 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.countryquiz.databinding.ActivityMainBinding
+import com.example.countryquiz.databinding.ActivityQuizQuestionsBinding
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        setContentView(R.layout.activity_main)
-        val btn_start : Button = findViewById(R.id.btn_start)
-        val edit_name : EditText = findViewById(R.id.edit_name)
-        btn_start.setOnClickListener {
+        binding.btnStart.setOnClickListener {
 
-            if (edit_name.text.isEmpty()){
+            if (binding.editName.text.isNullOrEmpty()){
                 Toast.makeText(this, "Please enter your name.", Toast.LENGTH_LONG).show()
             }
             else{
                 val intent = Intent(this, QuizQuestionsActivity::class.java)
+                intent.putExtra(Constants.USER_NAME, binding.editName.text.toString())
                 startActivity(intent)
-
             }
         }
 
